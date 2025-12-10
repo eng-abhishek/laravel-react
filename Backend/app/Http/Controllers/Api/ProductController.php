@@ -21,7 +21,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return Product::create($request->all());
+        $record = [
+                "name" => $request->get('name'),
+                "base_price" => $request->get('base_price'),
+                "selling_price" => $request->get('selling_price'),
+                "" => $request->get('selling_price'),
+ 
+                  ];
+
+        return Product::create();
     }
 
     /**
