@@ -10,15 +10,20 @@ export default function AddProduct() {
     base_price:"",
     selling_price:"",
     stock_qty:"",
-    product_color:[],
+    product_color:false,
+    // product_cat:"Man",
     short_description:"",
     description:"",
   });
 
+  const [dropdown,setDropdown] = useState("Man");
+
+  const handleDropdown = (e) => {
+    setDropdown(e.target.value);
+  }
+
   const handleSubmit = (e) => {
-
     console.log(e);
-
     e.preventDefault();
     axios.post("http://127.0.0.1:8000/api/products", data)
       .then(() => navigate("/"));
@@ -44,7 +49,7 @@ export default function AddProduct() {
         <div className="mb-3">
           <label className="form-lable">Base Price</label>
           <input type="number" className="form-control" name="base_price"
-          onChange={e=>setData({...data,base_price:e.target.base_price})}
+          onChange={e=>setData({...data,base_price:e.target.value})}
           required
           ></input>
         </div>
@@ -52,24 +57,34 @@ export default function AddProduct() {
         <div className="mb-3">
           <label className="form-lable">Selling Price</label>
           <input type="number" className="form-control" name="selling_price"
-           onChange={e=>setData({...data,selling_price:e.target.selling_price})}
+           onChange={e=>setData({...data,selling_price:e.target.value})}
            required
            ></input>
         </div>
 
         <div className="mb-3">
           <label className="form-lable">Stock QTY</label>
-          <input type="number" className="form-control" onChange={e=>setData({...data,stock_qty:e.target.stock_qty})}
+          <input type="number" className="form-control" onChange={e=>setData({...data,stock_qty:e.target.value})}
            name="stock_qty" required></input>
         </div>
 
         <div className="mb-3">
+          <label className="form-lable">Product Category</label>
+          <select value={dropdown} name="product_cat" onChange={handleDropdown}>
+          <option>Man</option>
+          <option>Woman</option>
+          <option>Kids</option>
+          </select>
+        </div>
+
+        <div className="mb-3">
          <label className="form-lable">Product Color</label>
-         Red : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" />
          <br/>
-         Black : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" />
+         Red : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.checked})} value="red" />
          <br/>
-         Blue : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" />
+         {/* Black : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" />
+         <br/>
+         Blue : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" /> */}
         </div>
 
         <div className="mb-3">

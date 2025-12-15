@@ -21,15 +21,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->all());
+
         $record = [
                 "name" => $request->get('name'),
                 "base_price" => $request->get('base_price'),
-                "selling_price" => $request->get('selling_price'),
-                "" => $request->get('selling_price'),
- 
+                "selling_price" => $request->get(key: 'selling_price'),
+                "stock_quantity" => $request->get('stock_qty'),
+                "product_img" => '1m.jpg',
+                "short_description" => $request->get('short_description'),
+                "description" => $request->get('description'),
+                // "category" => $request->get('product_cat'),
+                "category" => "man",
+                 "color" => $request->get("product_color"),
+                // "color" => "red",
                   ];
 
-        return Product::create();
+        return Product::create($record);
     }
 
     /**
