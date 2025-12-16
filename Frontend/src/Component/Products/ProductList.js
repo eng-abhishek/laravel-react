@@ -38,15 +38,13 @@ export default function ProductList() {
             <tr key={p.id}>
               <td>{p.id}</td>
               <td>{p.name}</td>
-              <td>₹ {p.price}</td>
+              <td>₹ {p.selling_price}</td>
               <td>{p.description}</td>
               <td>
                 <Link to={`/edit/${p.id}`} className="btn btn-warning btn-sm me-2">
                   Edit
                 </Link>
-
-                <button onClick={() => deleteProduct(p.id)}
-                  className="btn btn-danger btn-sm">
+                <button onClick={() => deleteProduct(p.id)} className="btn btn-danger btn-sm">
                   Delete
                 </button>
               </td>

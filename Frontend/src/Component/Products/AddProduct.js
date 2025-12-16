@@ -6,12 +6,11 @@ export default function AddProduct() {
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
-    price: "",
     base_price:"",
     selling_price:"",
     stock_qty:"",
-    product_color:false,
-    // product_cat:"Man",
+    product_color:[],
+    product_cat:"",
     short_description:"",
     description:"",
   });
@@ -28,6 +27,29 @@ export default function AddProduct() {
     axios.post("http://127.0.0.1:8000/api/products", data)
       .then(() => navigate("/"));
   };
+
+  const handleColor = (e) => {
+     
+    const {value,checked} = e.target;
+    
+    setData((prev)=>{
+      if(checked){
+       
+        return {
+          ...prev,
+          product_color:[...prev.product_color,value]
+        }
+
+      }else{
+         
+        return{
+          ...prev,
+          product_color:prev.product_color.filter((e) => e != value)
+        }
+
+      }
+    })
+  }
 
   return (
      <div className="container mt-4">
@@ -70,22 +92,24 @@ export default function AddProduct() {
 
         <div className="mb-3">
           <label className="form-lable">Product Category</label>
-          <select value={dropdown} name="product_cat" onChange={handleDropdown}>
-          <option>Man</option>
-          <option>Woman</option>
-          <option>Kids</option>
+          <select name="product_cat" onChange={e=>setData({...data,product_cat:e.target.value})}>
+          <option value="man">Man</option>
+          <option value="woman">Woman</option>
+          <option value="kids">Kids</option>
           </select>
         </div>
 
-        <div className="mb-3">
+         <div className="mb-3">
          <label className="form-lable">Product Color</label>
          <br/>
-         Red : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.checked})} value="red" />
+         Red : <input type="checkbox" checked={data.product_color.includes("red")} name="red" onChange={handleColor} value="red" />
          <br/>
-         {/* Black : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" />
+         Black : <input type="checkbox" checked={data.product_color.includes("black")} name="black" onChange={handleColor} value="black" />
          <br/>
-         Blue : <input type="checkbox" name="product_color" onChange={e=>setData({...data,product_color: e.target.value})} value="red" /> */}
+         Blue : <input type="checkbox" checked={data.product_color.includes("blue")} name="blue" onChange={handleColor} value="blue" /> 
         </div>
+
+
 
         <div className="mb-3">
           <label className="form-lable">Short Description</label>
